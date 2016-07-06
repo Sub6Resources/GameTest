@@ -72,7 +72,9 @@ public class MainThread extends Thread {
                     this.gamePanel.update();
                     //render state to the screen
                     //draws the canvas on the panel
-                    this.gamePanel.render(canvas);
+                    if(canvas != null) {
+                        this.gamePanel.render(canvas);
+                    }
                     timeDiff = System.currentTimeMillis() - beginTime;
                     sleepTime = (int)(FRAME_PERIOD - timeDiff);
                     if(sleepTime > 0) {
