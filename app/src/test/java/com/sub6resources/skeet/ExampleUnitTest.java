@@ -1,4 +1,4 @@
-package com.sub6resources.gametest;
+package com.sub6resources.skeet;
 
 import org.junit.Test;
 

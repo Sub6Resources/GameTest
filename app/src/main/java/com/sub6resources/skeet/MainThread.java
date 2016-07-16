@@ -1,4 +1,4 @@
-package com.sub6resources.gametest;
+package com.sub6resources.skeet;
 
 import android.graphics.Canvas;
 import android.util.Log;

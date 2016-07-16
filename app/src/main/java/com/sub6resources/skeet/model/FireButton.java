@@ -1,35 +1,28 @@
-package com.sub6resources.gametest.model;
-
-/**
- * Created by Matthew on 7/6/2016.
- */
+package com.sub6resources.skeet.model;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.util.Log;
 
-import com.sub6resources.gametest.model.components.Speed;
+import com.sub6resources.skeet.R;
+import com.sub6resources.skeet.guns.Gun;
 
-public class Droid {
-    private Bitmap bitmap;
+/**
+ * Created by Matthew on 7/9/2016.
+ */
+public class FireButton {
+    private boolean touched;
     private int x;
     private int y;
-    private boolean touched;
-    private Speed speed;
+    private Bitmap bitmap;
+    private Gun gun = new Gun();
 
-    public Droid(Bitmap bitmap, int x, int y) {
+    public FireButton(Bitmap bitmap, int x, int y) {
         this.bitmap = bitmap;
         this.x = x;
         this.y = y;
-        speed = new Speed();
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
     public int getX() {
         return x;
     }
@@ -42,38 +35,46 @@ public class Droid {
     public void setY(int y) {
         this.y = y;
     }
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
     public boolean isTouched() {
         return touched;
     }
     public void setTouched(boolean touched) {
         this.touched = touched;
     }
+    public void update() {
+        if(isTouched()) {
+            //TODO add touched graphics
+
+        }
+        else {
+            //TODO clear touched graphics
+
+        }
+    }
     public void draw(Canvas canvas) {
         canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
-        int drewx = x - (bitmap.getWidth() / 2);
-        int drewy = y - (bitmap.getHeight() / 2);
-        //Log.d("Main","Drew robot at "+drewx+","+drewy);
     }
-    public void handleActionDown(int eventX, int eventY) {
+    public boolean handleActionDown(int eventX, int eventY, Pigeon pigeon, Target target) {
         if(eventX >= (x - bitmap.getWidth() / 2) && (eventX <= (x + bitmap.getWidth()/2))) {
             if(eventY >= (y - bitmap.getHeight()/2) && (y <= (y +bitmap.getWidth()/2))) {
-                //droid touched
+                //firebutton touched
                 setTouched(true);
+                return gun.fire(pigeon,target);
             } else {
                 setTouched(false);
             }
         } else {
             setTouched(false);
         }
+        return false;
     }
-    public void update() {
-        if(!touched) {
-            x += (speed.getXv() * speed.getxDirection());
-            y += (speed.getYv() * speed.getyDirection());
-        }
-    }
-    public Speed getSpeed() {
-        return speed;
+    public Gun getGun() {
+        return gun;
     }
 }
-
